@@ -104,8 +104,8 @@ master-chart:
     create: true
     configmapContents: |
       {
-          "current_env" : "dev",
-          "clusterName" : "dev-global-cluster-0",
+          "current_env" : "prd",
+          "clusterName" : "prd-global-cluster-5",
           "clusterHost" : "kind"
       }
   
