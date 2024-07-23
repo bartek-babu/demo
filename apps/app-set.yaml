@@ -26,7 +26,7 @@ spec:
         path: spring-boot/{{.env}}
         helm:
           valueFiles:
-            - ./spring-boot/{{.env}}/values.yaml
+            - values.yaml
       destination:
         server: '{{.url}}'
         namespace: '{{.env}}-spring-boot'
