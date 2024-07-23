@@ -100,16 +100,17 @@ master-chart:
       pathType: ImplementationSpecific
   
   
-  
-  configmapContents: |
-    {
-        "current_env" : "prd",
-        "clusterName" : "prd-global-cluster-5",
-        "clusterHost" : "kind"
-    }
+  configmap:
+    create: true
+    configmapContents: |
+      {
+          "current_env" : "dev",
+          "clusterName" : "dev-global-cluster-0",
+          "clusterHost" : "kind"
+      }
   
   secretData:
-    username: "spring-boot-api"
+    username: c3ByaW5nLWJvb3QtYXBp
   
   serviceAccount:
     name: spring-boot-api
