@@ -101,7 +101,7 @@ master-chart:
   
   
   configmap:
-    create: true
+    create: false
     configmapContents: |
       {
           "current_env" : "dev",
