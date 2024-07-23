@@ -22,7 +22,7 @@ spec:
       project: '{{.env}}-spring-boot'
       source:
         repoURL: https://github.com/bartek-babu/demo.git 
-        targetRevision: HEAD
+        targetRevision: master
         path: spring-boot/{{.env}}
         helm:
           valuesFiles:
