@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/bartek-babu/demo'
+    repoURL: 'https://github.com/bartek-babu/demo-spring-boot'
     path: apps
     targetRevision: master
   destination:
