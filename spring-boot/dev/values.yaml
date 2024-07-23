@@ -99,14 +99,14 @@ master-chart:
       servicePort: 8082
       pathType: ImplementationSpecific
   
-  
-  
-  configmapContents: |
-    {
-        "current_env" : "dev",
-        "clusterName" : "dev-global-cluster-0",
-        "clusterHost" : "kind"
-    }
+  configmap:
+    create: true
+    configmapContents: |
+      {
+          "current_env" : "dev",
+          "clusterName" : "dev-global-cluster-0",
+          "clusterHost" : "kind"
+      }
   
   secretData:
     username: c3ByaW5nLWJvb3QtYXBp
