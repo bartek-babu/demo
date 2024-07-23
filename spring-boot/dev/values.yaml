@@ -1,7 +1,7 @@
 nameOverride: spring-boot-api
 fullnameOverride: spring-boot-api
 namespace: dev-spring-boot
-
+appName: spring-boot-api
 application:
   image:
     repository: busybox
