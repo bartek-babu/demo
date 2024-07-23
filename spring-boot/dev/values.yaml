@@ -9,9 +9,8 @@ master-chart:
       pullPolicy: IfNotPresent
       tag: stable
       
-    replicaCount: 0
     autoscaling:
-      enabled: false
+      enabled: enable
       minReplicas: 3
       maxReplicas: 6
   
