@@ -8,9 +8,10 @@ master-chart:
       repository: busybox
       pullPolicy: IfNotPresent
       tag: stable
-    
+
+    replicaCount: 0
     autoscaling:
-      enabled: true
+      enabled: false
       minReplicas: 0
       maxReplicas: 10
   
