@@ -21,7 +21,7 @@ spec:
     spec:
       project: '{{.env}}-spring-boot'
       source:
-        repoURL: https://github.com/bartek-babu/demo.git 
+        repoURL: https://github.com/bartek-babu/demo-spring-boot.git 
         targetRevision: master
         path: spring-boot/{{.env}}
         helm:
