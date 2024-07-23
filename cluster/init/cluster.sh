@@ -21,8 +21,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 argocd login localhost:80  
 argocd cluster add kind-argo --insecure --in-cluster
 
-#argocd proj create dev-spring-boot -d https://kubernetes.default.svc,dev-spring-boot -s https://github.com/bartek-babu/demo.git
-#argocd proj create prd-spring-boot -d https://kubernetes.default.svc,prd-spring-boot -s https://github.com/bartek-babu/demo.git
+#argocd proj create dev-spring-boot -d https://kubernetes.default.svc,dev-spring-boot -s https://github.com/bartek-babu/demo-spring-boot.git
+#argocd proj create prd-spring-boot -d https://kubernetes.default.svc,prd-spring-boot -s https://github.com/bartek-babu/demo-spring-boot.git
 
 kubectl apply -f dev-spring-boot-project.yaml --context kind-argo
 kubectl apply -f prd-spring-boot-project.yaml --context kind-argo
