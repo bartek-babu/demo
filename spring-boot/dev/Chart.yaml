@@ -5,5 +5,5 @@ version: 0.1.0
 appVersion: 0.1.0
 dependencies:
 - name: master-chart 
-  version: 0.1.0
+  version: 0.2.0
   repository: https://bartek-babu.github.io/Charts
