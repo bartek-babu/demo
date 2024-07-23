@@ -1,115 +1,115 @@
-nameOverride: spring-boot-api
-fullnameOverride: spring-boot-api
-namespace: prd-spring-boot
-
-application:
-  image:
-    repository: busybox
-    pullPolicy: IfNotPresent
-    tag: stable
+master-chart:
+  nameOverride: spring-boot-api
+  fullnameOverride: spring-boot-api
+  namespace: prd-spring-boot
+  appName: spring-boot-api
+  application:
+    image:
+      repository: busybox
+      pullPolicy: IfNotPresent
+      tag: stable
+    
+    autoscaling:
+      enabled: true
+      minReplicas: 5
+      maxReplicas: 10
   
-  autoscaling:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  
+    livenessProbe:
+      httpGet:
+        path: /api
+        port: http
+  
+    readinessProbe:
+      httpGet:
+        path: /api
+        port: http
+  
+    envs:
+    - name: JAVA_TOOLS_OPTIONS
+      value: --spring.profiles.active=prd
+    - name: USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: spring-boot-api-secret
+          key: username
+    - name: PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: spring-boot-api-secret
+          key: password
+    - name: API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: spring-boot-api-secret
+          key: apiKey
+  
+    volumes: 
+    - name: spring-boot-config
+      configMap:
+        name: spring-boot-api-configmap
+        
+    volumeMounts:
+    - name: spring-boot-config
+      mountPath: "app/config.json"
+      readOnly: true
+  
+    preStopCommand: wget http://localhost:8080/service/shutdown
+  
+  
+  service:
+    type: ClusterIP
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: logs
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+    - name: soap
+      port: 8082
+      protocol: TCP
+      targetPort: 8082
+  
+  ingress:
     enabled: true
-    minReplicas: 5
-    maxReplicas: 10
-
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-
-  livenessProbe:
-    httpGet:
+    hosts:
+      - host: spring-boot-api.prd.net
+    paths:
+    - serviceName: spring-boot-api-service
       path: /api
-      port: http
-
-  readinessProbe:
-    httpGet:
-      path: /api
-      port: http
-
-  envs:
-  - name: JAVA_TOOLS_OPTIONS
-    value: --spring.profiles.active=prd
-  - name: USERNAME
-    valueFrom:
-      secretKeyRef:
-        name: spring-boot-api-secret
-        key: username
-  - name: PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: spring-boot-api-secret
-        key: password
-  - name: API_KEY
-    valueFrom:
-      secretKeyRef:
-        name: spring-boot-api-secret
-        key: apiKey
-
-  volumes: 
-  - name: spring-boot-config
-    configMap:
-      name: spring-boot-api-configmap
-      
-  volumeMounts:
-  - name: spring-boot-config
-    mountPath: "app/config.json"
-    readOnly: true
-
-  preStopCommand: wget http://localhost:8080/service/shutdown
-
-
-service:
-  type: ClusterIP
-  ports:
-  - name: http
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
-  - name: logs
-    port: 8081
-    protocol: TCP
-    targetPort: 8081
-  - name: soap
-    port: 8082
-    protocol: TCP
-    targetPort: 8082
-
-
-
-ingress:
-  enabled: true
-  hosts:
-    - host: spring-boot-api.prd.net
-  paths:
-  - serviceName: spring-boot-api-service
-    path: /api
-    servicePort: 8080
-    pathType: ImplementationSpecific
-  - serviceName: spring-boot-api-service
-    path: /logs
-    servicePort: 8081
-    pathType: ImplementationSpecific
-  - serviceName: spring-boot-api-service
-    path: /soap
-    servicePort: 8082
-    pathType: ImplementationSpecific
-
-
-
-configmapContents: |
-  {
-      "current_env" : "prd",
-      "clusterName" : "prd-global-cluster-0",
-      "clusterHost" : "kind"
-  }
-
-secretData:
-  username: "spring-boot-api"
-
-serviceAccount:
-  name: spring-boot-api
+      servicePort: 8080
+      pathType: ImplementationSpecific
+    - serviceName: spring-boot-api-service
+      path: /logs
+      servicePort: 8081
+      pathType: ImplementationSpecific
+    - serviceName: spring-boot-api-service
+      path: /soap
+      servicePort: 8082
+      pathType: ImplementationSpecific
+  
+  
+  
+  configmapContents: |
+    {
+        "current_env" : "prd",
+        "clusterName" : "prd-global-cluster-5",
+        "clusterHost" : "kind"
+    }
+  
+  secretData:
+    username: "spring-boot-api"
+  
+  serviceAccount:
+    name: spring-boot-api
+  
