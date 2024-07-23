@@ -109,7 +109,7 @@ master-chart:
     }
   
   secretData:
-    username: "spring-boot-api"
+    username: c3ByaW5nLWJvb3QtYXBp
   
   serviceAccount:
     name: spring-boot-api
