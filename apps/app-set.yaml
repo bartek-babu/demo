@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: spring-boot-api-app-set
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - cluster: dev-global-cluster-0
+        url: https://kubernetes.default.svc
+        env: dev
+      - cluster: prd-global-cluster-5
+        url: https://kubernetes.default.svc
+        env: prod
+  template:
+    metadata:
+      name: '{{.env}}-spring-boot-api'
+    spec:
+      project: '{{.env}}-spring-boot'
+      source:
+        repoURL: https://github.com/argoproj/argocd-example-apps.git 
+        targetRevision: HEAD
+        path: helm-guestbook
+      destination:
+        server: '{{.url}}'
+        namespace: '{{.env}}-spring-boot'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true

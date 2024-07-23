@@ -1,0 +1,4 @@
+dependencies:
+- name: master-chart 
+  version: 0.1.0
+  repository: https://bartek-babu.github.io/Charts
