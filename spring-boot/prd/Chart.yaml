@@ -1,3 +1,8 @@
+apiVersion: v2
+name: spring-boot-api
+type: application
+version: 0.1.0
+appVersion: 0.1.0
 dependencies:
 - name: master-chart 
   version: 0.1.0
